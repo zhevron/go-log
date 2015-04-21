@@ -3,7 +3,7 @@ go-log - Simple logging library
 
 [![wercker status](https://app.wercker.com/status/c98a6d8f01bffef5bca40c3563347dba/m "wercker status")](https://app.wercker.com/project/bykey/c98a6d8f01bffef5bca40c3563347dba)
 
-[![Coverage Status](https://img.shields.io/coveralls/zhevron/go-log.svg)](https://coveralls.io/r/zhevron/go-log)
+[![Coverage Status](https://coveralls.io/repos/zhevron/go-log/badge.svg?branch=HEAD)](https://coveralls.io/r/zhevron/go-log?branch=HEAD)
 [![GoDoc](https://godoc.org/gopkg.in/zhevron/go-log.v0/log?status.svg)](https://godoc.org/gopkg.in/zhevron/go-log.v0/log)
 
 **go-log** is a simple logging library for [Go](https://golang.org/).  
