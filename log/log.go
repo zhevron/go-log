@@ -32,6 +32,9 @@ var IncludeTimeStamp = true
 // stack and try to guess which file and line invoked the call to Log.
 var ShowFileAndLineNumber = false
 
+// UseUTC decides whether the timestamp is logged in the local timezone or UTC.
+var UseUTC = false
+
 // sinks contain all the defined log sinks.
 var sinks []*Sink
 
@@ -51,7 +54,11 @@ func Log(level Level, message string) {
 	prefix := fmt.Sprintf("[%s]", level.String())
 
 	if IncludeTimeStamp {
-		prefix = fmt.Sprintf("%s [%s]", prefix, time.Now().Format(TimestampFormat))
+		t := time.Now()
+		if UseUTC {
+			t = t.UTC()
+		}
+		prefix = fmt.Sprintf("%s [%s]", prefix, t.Format(TimestampFormat))
 	}
 
 	if ShowFileAndLineNumber {

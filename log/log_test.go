@@ -38,6 +38,7 @@ func TestLog(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Log(LevelDebug, msg)
@@ -54,6 +55,7 @@ func TestLog_IncludeTimeStamp(t *testing.T) {
 
 	IncludeTimeStamp = true
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Log(LevelDebug, msg)
@@ -75,6 +77,7 @@ func TestLog_ShowFileAndLineNumber(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = true
+	UseUTC = false
 
 	msg := "Testing log message"
 	Log(LevelDebug, msg)
@@ -90,12 +93,35 @@ func TestLog_ShowFileAndLineNumber(t *testing.T) {
 	}
 }
 
+func TestLog_UseUTC(t *testing.T) {
+	defer func() { sinks = nil }()
+	b := createBufferSink(LevelDebug)
+
+	IncludeTimeStamp = true
+	ShowFileAndLineNumber = false
+	UseUTC = true
+
+	msg := "Testing log message"
+	Log(LevelDebug, msg)
+
+	buf := string(b.Bytes())
+	if !strings.Contains(buf, msg) {
+		t.Errorf("did not find %#q in buffer %#q", msg, buf)
+	}
+
+	now := time.Now().UTC().Format("2006-01-02")
+	if !strings.Contains(buf, now) {
+		t.Errorf("did not find %#q in buffer %#q", now, buf)
+	}
+}
+
 func TestLogf(t *testing.T) {
 	defer func() { sinks = nil }()
 	b := createBufferSink(LevelDebug)
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Logf(LevelDebug, "%s", msg)
@@ -112,6 +138,7 @@ func TestDebug(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Debug(msg)
@@ -133,6 +160,7 @@ func TestDebugf(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Debugf("%s", msg)
@@ -154,6 +182,7 @@ func TestInfo(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Info(msg)
@@ -175,6 +204,7 @@ func TestInfof(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Infof("%s", msg)
@@ -196,6 +226,7 @@ func TestWarning(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Warning(msg)
@@ -217,6 +248,7 @@ func TestWarningf(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Warningf("%s", msg)
@@ -238,6 +270,7 @@ func TestError(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Error(msg)
@@ -259,6 +292,7 @@ func TestErrorf(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	Errorf("%s", msg)
@@ -280,6 +314,7 @@ func TestFatal(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	defer func() {
@@ -306,6 +341,7 @@ func TestFatalf(t *testing.T) {
 
 	IncludeTimeStamp = false
 	ShowFileAndLineNumber = false
+	UseUTC = false
 
 	msg := "Testing log message"
 	defer func() {
