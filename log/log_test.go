@@ -115,23 +115,6 @@ func TestLog_UseUTC(t *testing.T) {
 	}
 }
 
-func TestLogf(t *testing.T) {
-	defer func() { sinks = nil }()
-	b := createBufferSink(LevelDebug)
-
-	IncludeTimeStamp = false
-	ShowFileAndLineNumber = false
-	UseUTC = false
-
-	msg := "Testing log message"
-	Logf(LevelDebug, "%s", msg)
-
-	buf := string(b.Bytes())
-	if !strings.Contains(buf, msg) {
-		t.Errorf("did not find %#q in buffer %#q", msg, buf)
-	}
-}
-
 func TestDebug(t *testing.T) {
 	defer func() { sinks = nil }()
 	b := createBufferSink(LevelDebug)

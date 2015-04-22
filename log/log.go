@@ -81,11 +81,6 @@ func Log(level Level, message string) {
 	}
 }
 
-// Logf logs a formatted message with the specified level.
-func Logf(level Level, message string, format ...interface{}) {
-	Log(level, fmt.Sprintf(message, format...))
-}
-
 // Debug logs a message with the LevelDebug level.
 func Debug(message string) {
 	Log(LevelDebug, message)
@@ -93,7 +88,7 @@ func Debug(message string) {
 
 // Debugf logs a formatted message with the LevelDebug level.
 func Debugf(message string, format ...interface{}) {
-	Logf(LevelDebug, message, format...)
+	Log(LevelDebug, fmt.Sprintf(message, format...))
 }
 
 // Info logs a message with the LevelInformation level.
@@ -103,7 +98,7 @@ func Info(message string) {
 
 // Infof logs a formatted message with the LevelInformation level.
 func Infof(message string, format ...interface{}) {
-	Logf(LevelInformation, message, format...)
+	Log(LevelInformation, fmt.Sprintf(message, format...))
 }
 
 // Warning logs a message with the LevelWarning level.
@@ -113,7 +108,7 @@ func Warning(message string) {
 
 // Warningf logs a formatted message with the LevelWarning level.
 func Warningf(message string, format ...interface{}) {
-	Logf(LevelWarning, message, format...)
+	Log(LevelWarning, fmt.Sprintf(message, format...))
 }
 
 // Error logs a message with the LevelError level.
@@ -123,7 +118,7 @@ func Error(message string) {
 
 // Errorf logs a formatted message with the LevelError level.
 func Errorf(message string, format ...interface{}) {
-	Logf(LevelError, message, format...)
+	Log(LevelError, fmt.Sprintf(message, format...))
 }
 
 // Fatal logs a message with the LevelFatal level and panics.
@@ -134,7 +129,7 @@ func Fatal(message string) {
 
 // Fatalf logs a formatted message with the LevelFatal level and panics.
 func Fatalf(message string, format ...interface{}) {
-	Logf(LevelFatal, message, format...)
+	Log(LevelFatal, fmt.Sprintf(message, format...))
 	panic(fmt.Sprintf(message, format...))
 }
 
