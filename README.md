@@ -37,10 +37,13 @@ func main() {
   }
   defer f.Close()
 
-  // Add it as a sink.
-  log.AddSink(log.NewSink(log.LevelDebug, f))
+  // Create a new logger.
+  logger := log.NewLogger("MyLogger", log.Info)
 
-  log.Info("This message will appear in the log file")
+  // Add the file as an output.
+  logger.Output(f)
+
+  logger.Info("This message will appear in the log file")
 }
 ```
 
@@ -52,10 +55,13 @@ package main
 import "gopkg.in/zhevron/go-log.v0/log"
 
 func main() {
-  // Add the standard Stdout sink.
-  log.AddSink(log.Stdout)
+  // Create a new logger.
+  logger := log.NewLogger("MyLogger", log.Info)
 
-  log.Info("This message will appear in stdout")
+  // Add stdout as an output.
+  logger.Output(os.Stdout)
+
+  logger.Info("This message will appear in stdout")
 }
 ```
 
