@@ -55,9 +55,11 @@ func Log(level Level, message string) {
 
 	if IncludeTimeStamp {
 		t := time.Now()
+
 		if UseUTC {
 			t = t.UTC()
 		}
+
 		prefix = fmt.Sprintf("%s [%s]", prefix, t.Format(TimestampFormat))
 	}
 
@@ -68,6 +70,7 @@ func Log(level Level, message string) {
 			_, file, line, ok = runtime.Caller(i)
 			i++
 		}
+
 		prefix = fmt.Sprintf("%s [%s:%d]", prefix, file, line)
 	}
 
