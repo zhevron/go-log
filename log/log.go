@@ -4,7 +4,6 @@ package log
 import (
 	"fmt"
 	"runtime"
-	"strings"
 	"time"
 )
 
@@ -50,7 +49,7 @@ func AddSink(sink *Sink) {
 }
 
 // Log logs a message to the defined sinks.
-func Log(level Level, message string) {
+func Log(level Level, message string, depth int) {
 	prefix := fmt.Sprintf("[%s]", level.String())
 
 	if IncludeTimeStamp {
@@ -64,11 +63,10 @@ func Log(level Level, message string) {
 	}
 
 	if ShowFileAndLineNumber {
-		i := 1
-		_, file, line, ok := runtime.Caller(0)
-		for ok && strings.Contains(file, "log.go") {
-			_, file, line, ok = runtime.Caller(i)
-			i++
+		_, file, line, ok := runtime.Caller(depth)
+		if !ok {
+			file = "<unknown>"
+			line = 0
 		}
 
 		prefix = fmt.Sprintf("%s [%s:%d]", prefix, file, line)
@@ -86,53 +84,53 @@ func Log(level Level, message string) {
 
 // Debug logs a message with the LevelDebug level.
 func Debug(message string) {
-	Log(LevelDebug, message)
+	Log(LevelDebug, message, 2)
 }
 
 // Debugf logs a formatted message with the LevelDebug level.
 func Debugf(message string, format ...interface{}) {
-	Log(LevelDebug, fmt.Sprintf(message, format...))
+	Log(LevelDebug, fmt.Sprintf(message, format...), 2)
 }
 
 // Info logs a message with the LevelInformation level.
 func Info(message string) {
-	Log(LevelInformation, message)
+	Log(LevelInformation, message, 2)
 }
 
 // Infof logs a formatted message with the LevelInformation level.
 func Infof(message string, format ...interface{}) {
-	Log(LevelInformation, fmt.Sprintf(message, format...))
+	Log(LevelInformation, fmt.Sprintf(message, format...), 2)
 }
 
 // Warning logs a message with the LevelWarning level.
 func Warning(message string) {
-	Log(LevelWarning, message)
+	Log(LevelWarning, message, 2)
 }
 
 // Warningf logs a formatted message with the LevelWarning level.
 func Warningf(message string, format ...interface{}) {
-	Log(LevelWarning, fmt.Sprintf(message, format...))
+	Log(LevelWarning, fmt.Sprintf(message, format...), 2)
 }
 
 // Error logs a message with the LevelError level.
 func Error(message string) {
-	Log(LevelError, message)
+	Log(LevelError, message, 2)
 }
 
 // Errorf logs a formatted message with the LevelError level.
 func Errorf(message string, format ...interface{}) {
-	Log(LevelError, fmt.Sprintf(message, format...))
+	Log(LevelError, fmt.Sprintf(message, format...), 2)
 }
 
 // Fatal logs a message with the LevelFatal level and panics.
 func Fatal(message string) {
-	Log(LevelFatal, message)
+	Log(LevelFatal, message, 2)
 	panic(message)
 }
 
 // Fatalf logs a formatted message with the LevelFatal level and panics.
 func Fatalf(message string, format ...interface{}) {
-	Log(LevelFatal, fmt.Sprintf(message, format...))
+	Log(LevelFatal, fmt.Sprintf(message, format...), 2)
 	panic(fmt.Sprintf(message, format...))
 }
 

@@ -41,7 +41,7 @@ func TestLog(t *testing.T) {
 	UseUTC = false
 
 	msg := "Testing log message"
-	Log(LevelDebug, msg)
+	Log(LevelDebug, msg, 0)
 
 	buf := string(b.Bytes())
 	if !strings.Contains(buf, msg) {
@@ -58,7 +58,7 @@ func TestLog_IncludeTimeStamp(t *testing.T) {
 	UseUTC = false
 
 	msg := "Testing log message"
-	Log(LevelDebug, msg)
+	Log(LevelDebug, msg, 0)
 
 	buf := string(b.Bytes())
 	if !strings.Contains(buf, msg) {
@@ -80,7 +80,7 @@ func TestLog_ShowFileAndLineNumber(t *testing.T) {
 	UseUTC = false
 
 	msg := "Testing log message"
-	Log(LevelDebug, msg)
+	Log(LevelDebug, msg, 1)
 
 	buf := string(b.Bytes())
 	if !strings.Contains(buf, msg) {
@@ -102,7 +102,7 @@ func TestLog_UseUTC(t *testing.T) {
 	UseUTC = true
 
 	msg := "Testing log message"
-	Log(LevelDebug, msg)
+	Log(LevelDebug, msg, 0)
 
 	buf := string(b.Bytes())
 	if !strings.Contains(buf, msg) {
