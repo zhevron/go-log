@@ -3,12 +3,14 @@ package log
 import (
 	"io"
 	"os"
+	"sync"
 )
 
 // Sink defines a log sink with a target io.Writer.
 type Sink struct {
-	Level  Level     // The minimum log level before using the sink
-	Writer io.Writer // The io.Writer to use for writing messages
+	mutex  sync.Mutex // Ensure atomic writes
+	Level  Level      // The minimum log level before using the sink
+	Writer io.Writer  // The io.Writer to use for writing messages
 }
 
 // Default sinks.
@@ -27,6 +29,9 @@ func (s *Sink) Write(level Level, message string) error {
 	if level < s.Level {
 		return nil
 	}
+
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
 
 	_, err := s.Writer.Write([]byte(message))
 	return err
