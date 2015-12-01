@@ -8,7 +8,7 @@ go-log - Simple logging library
 
 **go-log** is a simple logging library for [Go](https://golang.org/).  
 
-For package documentation, refer to the GoDoc badge above
+For package documentation, refer to the GoDoc badge above.
 
 ## Installation
 
