@@ -5,6 +5,10 @@ build:
     - setup-go-workspace
     - golint
     - script:
+        name: go get
+        code: |
+          go get -t ./...
+    - script:
         name: go build
         code: |
           go build ./...

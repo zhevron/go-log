@@ -1,70 +1,46 @@
-go-log - Simple logging library
-===============================
+log - Simple logging library
+============================
 
-[![wercker status](https://app.wercker.com/status/c98a6d8f01bffef5bca40c3563347dba/m "wercker status")](https://app.wercker.com/project/bykey/c98a6d8f01bffef5bca40c3563347dba)
+[![wercker status](https://app.wercker.com/status/054f2a1e2351df9bc41d07889f2bcf36/s/master "wercker status")](https://app.wercker.com/project/bykey/054f2a1e2351df9bc41d07889f2bcf36)
+[![Coverage Status](https://coveralls.io/repos/zhevron/log/badge.svg?branch=master&service=github)](https://coveralls.io/github/zhevron/log?branch=master)
+[![GoDoc](https://godoc.org/github.com/zhevron/log?status.svg)](https://godoc.org/github.com/zhevron/log)
 
-[![Coverage Status](https://coveralls.io/repos/zhevron/go-log/badge.svg?branch=HEAD)](https://coveralls.io/r/zhevron/go-log?branch=HEAD)
-[![GoDoc](https://godoc.org/gopkg.in/zhevron/go-log.v0/log?status.svg)](https://godoc.org/gopkg.in/zhevron/go-log.v0/log)
-
-**go-log** is a simple logging library for [Go](https://golang.org/).  
-
-For package documentation, refer to the GoDoc badge above.
-
-## Installation
-
-```
-go get gopkg.in/zhevron/go-log.v0/log
-```
+**log** is a simple logging library for [Google Go](https://golang.org/).  
+For full package documentation, see the GoDoc link above.
 
 ## Usage
 
 ### Log to file
 
 ```go
-package main
-
-import (
-  "os"
-
-  "gopkg.in/zhevron/go-log.v0/log"
-)
-
-func main() {
-  // Open the log file.
-  f, err := os.Create("myLogFile.log")
-  if err != nil {
-    panic(err)
-  }
-  defer f.Close()
-
-  // Create a new logger.
-  logger := log.NewLogger("MyLogger", log.Info)
-
-  // Add the file as an output.
-  logger.Output(f)
-
-  logger.Info("This message will appear in the log file")
+// Create and open a file.
+f, err := os.Create("myLogFile.log")
+if err != nil {
+  panic(err)
 }
+defer f.Close()
+
+// Add the file as an output.
+log.AddOutput(f)
+
+// Create a new logger.
+logger := log.NewLogger("MyLogger", log.Info)
+
+logger.Info("This message will appear in the log file")
 ```
 
 ### Log to stdout
 
 ```go
-package main
+// Add stdout as an output.
+log.AddOutput(os.Stdout)
 
-import "gopkg.in/zhevron/go-log.v0/log"
+// Create a new logger.
+logger := log.NewLogger("MyLogger", log.Info)
 
-func main() {
-  // Create a new logger.
-  logger := log.NewLogger("MyLogger", log.Info)
-
-  // Add stdout as an output.
-  logger.Output(os.Stdout)
-
-  logger.Info("This message will appear in stdout")
-}
+logger.Info("This message will appear in stdout")
 ```
 
 ## License
 
-**go-log** is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+**log** is licensed under the [MIT license](http://opensource.org/licenses/MIT).
