@@ -1,10 +1,6 @@
 package log
 
-import (
-	"os"
-
-	"github.com/zhevron/log"
-)
+import "os"
 
 var logger = NewLogger("ExampleLogger", Info)
 
@@ -14,7 +10,7 @@ func ExampleAddOutput() {
 		panic(err)
 	}
 	defer f.Close()
-	log.AddOutput(f)
+	AddOutput(f)
 }
 
 func ExampleLoggerDebug() {
